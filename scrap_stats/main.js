@@ -239,7 +239,7 @@ fastify.get('/no_extra_yet', async (request, reply) => {
 
 
 // Run the server!
-fastify.listen(3000, (err, address) => {
+fastify.listen(3100, (err, address) => {
   if (err) throw err
   fastify.log.info(`server listening on ${address}`)
 });
