@@ -1,0 +1,16 @@
+{
+  "name": "scrap_stats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^1.13.1",
+    "moment": "^2.22.2",
+    "mongoose": "^5.3.14"
+  }
+}
