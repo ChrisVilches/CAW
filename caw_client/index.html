@@ -16,18 +16,23 @@
   </head>
   <body>
 
-    <div class="container" style="border: 1px solid black;">
+    <div class="container">
 
       <div id="top-title">
         <h1>C.A.W.</h1><small>Computer assisted writing</small>
       </div>
 
-      <div class="row" style="background-color: red;">
+      <div class="row mb-4">
         <div class="col-md-10">
-          <textarea id="words-textarea" rows="10">東京
+          <form id="input-form">
+            <textarea id="words-textarea" rows="10">東京
 馬
 苦手</textarea>
-          <button class="btn btn-primary circle" id="get-btn">OK</button>
+          </form>
+          <button type="submit" form="input-form" class="btn btn-primary circle" id="get-btn">OK</button>
+          <button class="btn btn-primary circle" id="get-btn-loading" disabled style="display: none;">
+            <img src="https://loading.io/assets/img/dashinfinity.gif"/>
+          </button>
         </div>
 
         <div class="col-md-2">
@@ -42,54 +47,27 @@
 
     <script id="word-result-template" type="text/template">
 
-        {{#.}}
-        <div class="row" style="margin-bottom: 100px;"> <!-- Row per word -->
+      {{#.}}
+        <div class="row mb-4"> <!-- Row per word -->
           <div class="col-md-12">
 
             <h1>{{word}}</h1>
 
             {{#synonyms}}
-              <div class="row" style="background-color: #aaaaff;">
-                <div class="col-md-3" style="background-color: yellow;">{{meaning}}</div><div class="col-md-9">{{synonyms}}</div>
+              <div class="row padding-vertical border-bottom">
+                <div class="col-md-3">{{meaning}}</div><div class="col-md-9">{{synonyms}}</div>
               </div>
             {{/synonyms}}
 
-            <div class="row">
-              <div class="col-md-12" style="background-color: pink;">{{extra}}</div>
+            <div class="row padding-vertical">
+              <div class="col-md-12">{{extra}}</div>
             </div>
 
           </div>
         </div> <!-- END row per word -->
-        {{/.}}
+      {{/.}}
 
     </script>
-
-    <script type="text/javascript">
-
-      $("#get-btn").click(function(){
-
-        let text = $("#words-textarea").val();
-        text = text.split("\n");
-
-        query = text
-        .map(l => l.trim())
-        .filter(l => l.length > 0)
-        .join(",");
-
-        $.ajax({
-          type: 'GET',
-          url: "http://www.felovilches.com/caw/api/words?q=" + query,
-          processData: false
-        })
-        .done(res => {
-          var template = $('#word-result-template').html();
-          var html = Mustache.to_html(template, res);
-          $('#result').html(html);
-
-        })
-        .catch(alert);
-
-      });
-    </script>
+    <script src="js/index.js"></script>
   </body>
 </html>

@@ -7,8 +7,30 @@
   width: 100%;
 }
 
+.btn-primary {
+  background-color: #EE2625;
+  border-color: #9a1212;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:disabled,
+.btn-primary:focus {
+  background-color: #9a1212;
+  border-color: #9a1212;
+}
+
 .circle {
   width: 80px;
   height: 80px;
   border-radius: 50%;
+}
+
+.padding-vertical {
+  padding: 10px 0;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #9a1212;
 }
