@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta charset="utf-8">
     <title>CAW Client</title>
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
     <script
     src="https://code.jquery.com/jquery-3.4.0.min.js"
     integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
@@ -12,21 +11,64 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
   </head>
   <body>
 
-    git
+    <div class="container" style="border: 1px solid black;">
 
-    <textarea id="text" rows="10"></textarea>
-    <button class="btn btn-primary" id="get-btn">OK</button>
+      <div id="top-title">
+        <h1>C.A.W.</h1><small>Computer assisted writing</small>
+      </div>
 
-    <p id="result-count"></p>
-    <pre id="result"></pre>
+      <div class="row" style="background-color: red;">
+        <div class="col-md-10">
+          <textarea id="words-textarea" rows="10">東京
+馬
+苦手</textarea>
+          <button class="btn btn-primary circle" id="get-btn">OK</button>
+        </div>
+
+        <div class="col-md-2">
+          <p>By me.</p>
+        </div>
+      </div>
+
+      <div id="result"></div>
+    </div>
+
+
+
+    <script id="word-result-template" type="text/template">
+
+        {{#.}}
+        <div class="row" style="margin-bottom: 100px;"> <!-- Row per word -->
+          <div class="col-md-12">
+
+            <h1>{{word}}</h1>
+
+            {{#synonyms}}
+              <div class="row" style="background-color: #aaaaff;">
+                <div class="col-md-3" style="background-color: yellow;">{{meaning}}</div><div class="col-md-9">{{synonyms}}</div>
+              </div>
+            {{/synonyms}}
+
+            <div class="row">
+              <div class="col-md-12" style="background-color: pink;">{{extra}}</div>
+            </div>
+
+          </div>
+        </div> <!-- END row per word -->
+        {{/.}}
+
+    </script>
 
     <script type="text/javascript">
+
       $("#get-btn").click(function(){
 
-        let text = $("#text").val();
+        let text = $("#words-textarea").val();
         text = text.split("\n");
 
         query = text
@@ -40,11 +82,10 @@
           processData: false
         })
         .done(res => {
+          var template = $('#word-result-template').html();
+          var html = Mustache.to_html(template, res);
+          $('#result').html(html);
 
-          $("#result-count").html(res.length + "件");
-
-          let result = JSON.stringify(res, null, '\t');
-          $("#result").html(result);
         })
         .catch(alert);
 
