@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta charset="utf-8">
+    <title>CAW Client</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all">
+    <script
+    src="https://code.jquery.com/jquery-3.4.0.min.js"
+    integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  </head>
+  <body>
+
+    git
+
+    <textarea id="text" rows="10"></textarea>
+    <button class="btn btn-primary" id="get-btn">OK</button>
+
+    <p id="result-count"></p>
+    <pre id="result"></pre>
+
+    <script type="text/javascript">
+      $("#get-btn").click(function(){
+
+        let text = $("#text").val();
+        text = text.split("\n");
+
+        query = text
+        .map(l => l.trim())
+        .filter(l => l.length > 0)
+        .join(",");
+
+        $.ajax({
+          type: 'GET',
+          url: "http://www.felovilches.com/caw/api/words?q=" + query,
+          processData: false
+        })
+        .done(res => {
+
+          $("#result-count").html(res.length + "件");
+
+          let result = JSON.stringify(res, null, '\t');
+          $("#result").html(result);
+        })
+        .catch(alert);
+
+      });
+    </script>
+  </body>
+</html>
