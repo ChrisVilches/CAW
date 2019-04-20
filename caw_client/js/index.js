@@ -1,3 +1,5 @@
+var modalPagesStack = [];
+
 $("#input-form").on("submit", function(ev){
   ev.preventDefault();
 
@@ -76,6 +78,19 @@ function displayModal(modalTitle, modalContent, animation = false){
   if(!(modalEl.data('bs.modal') || {})._isShown){
     modalEl.modal('show');
   }
+
+  modalPagesStack.push({
+    title: modalTitle,
+    content: modalContent
+  });
+
+  if(modalPagesStack.length == 1){
+    $("#modal-back-btn").hide();
+    $("#modal-close-btn").show();
+  } else {
+    $("#modal-back-btn").show();
+    $("#modal-close-btn").hide();
+  }
 }
 
 function displayModalShowWord(word){
@@ -99,7 +114,22 @@ function displayModalShowWord(word){
     });
 
   }, true);
-
-
-
 }
+
+function goBack(){
+
+  modalPagesStack.pop();
+
+  if(modalPagesStack.length == 0){
+    $("#right-modal").modal('hide');
+    return;
+  }
+
+  var last = modalPagesStack.pop();
+
+  displayModal(last.title, last.content);
+}
+
+$("#right-modal").on("hidden.bs.modal", function() {
+  modalPagesStack = [];
+});
