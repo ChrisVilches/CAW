@@ -81,12 +81,21 @@
 
             {{#synonyms}}
               <div class="row padding-vertical border-bottom">
-                <div class="col-md-3">{{meaning}}</div><div class="col-md-9">{{synonyms}}</div>
+                <div class="col-md-3">{{meaning}}</div>
+                <div class="col-md-9">
+                  {{#synonyms}}
+                  <a href="javascript:;" onclick="displayModalShowWord('{{.}}')" class="searchable-word">{{.}}</a>
+                  {{/synonyms}}
+                </div>
               </div>
             {{/synonyms}}
 
             <div class="row padding-vertical">
-              <div class="col-md-12">{{extra}}</div>
+              <div class="col-md-12">
+                {{#extra}}
+                <a href="javascript:;" onclick="displayModalShowWord('{{.}}')" class="searchable-word">{{.}}</a>
+                {{/extra}}
+              </div>
             </div>
 
           </div>

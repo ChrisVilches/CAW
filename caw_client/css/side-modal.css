@@ -12,6 +12,11 @@
 .modal.right .modal-content {
 	height: 100%;
 	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.modal-body {
+	width: 320px;
 }
 
 .modal.right .modal-body {
