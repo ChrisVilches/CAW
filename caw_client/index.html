@@ -26,24 +26,21 @@
     <div class="container">
 
       <div id="top-title">
-        <h1>C.A.W.</h1><small>Computer assisted writing</small>
+        <span>C.A.W.</span><small>Computer assisted writing</small>
       </div>
 
       <div class="row mb-4">
-        <div class="col-md-10">
+        <div class="col-md-12">
           <form id="input-form">
-            <textarea id="words-textarea" rows="10">東京
-馬
-苦手</textarea>
+            <textarea id="words-textarea" rows="8">押し付ける
+図る
+仕様
+</textarea>
           </form>
-          <button type="submit" form="input-form" class="btn btn-primary circle" id="get-btn">OK</button>
-          <button class="btn btn-primary circle" id="get-btn-loading" disabled style="display: none;">
-            <img src="https://loading.io/assets/img/dashinfinity.gif"/>
+          <button type="submit" form="input-form" class="btn btn-primary" id="get-btn">検索</button>
+          <button class="btn btn-primary" id="get-btn-loading" disabled style="display: none;">
+            <img src="https://loading.io/assets/img/dashinfinity.gif" class="loading-gif"/>
           </button>
-        </div>
-
-        <div class="col-md-2">
-          <p>By me.</p>
         </div>
       </div>
 
