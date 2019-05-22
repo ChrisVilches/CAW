@@ -7,9 +7,11 @@ $("#input-form").on("submit", function(ev){
   $("#get-btn-loading").show();
 
   let text = $("#words-textarea").val();
-  text = text.split("\n");
+
+  localStorage.setItem("previousText", text);
 
   query = text
+  .split("\n")
   .map(l => l.trim())
   .filter(l => l.length > 0)
   .join(",");
@@ -20,10 +22,8 @@ $("#input-form").on("submit", function(ev){
     processData: false
   })
   .done(res => {
-    var html = getWords2HTML(res);
-    $('#result').hide();
-    $('#result').html(html);
-    $('#result').fadeIn();
+    localStorage.setItem("previousResult", JSON.stringify(res));
+    displayResults(res);
   })
   .catch(alert)
   .done(() => {
@@ -32,6 +32,14 @@ $("#input-form").on("submit", function(ev){
   });
 
 });
+
+
+function displayResults(res){
+  var html = getWords2HTML(res);
+  $('#result').hide();
+  $('#result').html(html);
+  $('#result').fadeIn();
+}
 
 $('#input-form').keydown(function(event) {
   if (event.ctrlKey && event.keyCode === 13) {
@@ -132,4 +140,15 @@ function goBack(){
 
 $("#right-modal").on("hidden.bs.modal", function() {
   modalPagesStack = [];
+});
+
+$(document).ready(function(){
+
+  var previousText = localStorage.getItem("previousText") || "";
+  var previousResult = localStorage.getItem("previousResult");
+  $("#words-textarea").val(previousText);
+
+  if(previousResult != null){
+    displayResults(JSON.parse(previousResult));
+  }
 });
