@@ -1,3 +1,5 @@
+const API_URL = 'http://cloud.chrisvilches.com/caw/api';
+
 var modalPagesStack = [];
 
 $("#input-form").on("submit", function(ev){
@@ -18,7 +20,7 @@ $("#input-form").on("submit", function(ev){
 
   $.ajax({
     type: 'GET',
-    url: "http://www.felovilches.com/caw/api/words?q=" + query,
+    url: API_URL + '/words?q=' + query,
     processData: false
   })
   .done(res => {
@@ -109,7 +111,7 @@ function displayModalShowWord(word){
 
     $.ajax({
       type: 'GET',
-      url: "http://www.felovilches.com/caw/api/words?q=" + word,
+      url: API_URL + '/words?q=' + word,
       processData: false
     })
     .done(res => {
