@@ -1,4 +1,4 @@
-const API_URL = 'http://cloud.chrisvilches.com/caw/api';
+const API_URL = 'http://cloud.chrisvilches.com/live_demos/CAW/api';
 
 var modalPagesStack = [];
 

@@ -4,7 +4,7 @@ var Word = require('../models/word');
 
 router.get('/', async (req, res) => {
 
-  wordsArray = req.query.q.split(",");
+  wordsArray = (req.query.q || '').split(",");
 
   let word = await Word.find({ word: { $in: wordsArray } });
 
