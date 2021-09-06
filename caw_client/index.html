@@ -9,12 +9,8 @@
     integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
     crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
@@ -22,51 +18,48 @@
     <link href="css/side-modal.css" rel="stylesheet" type="text/css" media="all">
   </head>
   <body>
-
     <div class="container">
-      <div class="row"><div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
+          <div id="top-title">
+            <span>C.A.W.</span><small>Computer assisted writing</small>
+            <p>
+              <a href="https://github.com/ChrisVilches/CAW" class="github-icon" target="_blank">
+                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/github.svg"/>
+              </a>
+              <small>By <a href="http://www.chrisvilches.com/" target="_blank">Chris Vilches</a></small>
+            </p>
+          </div>
 
-      <div id="top-title">
-        <span>C.A.W.</span><small>Computer assisted writing</small>
+          <div id="app-explanation-text">
+            <p>
+              This app is a dummy frontend to test a dictionary API that provides tens of thousands of scraped words from various sites.
+            </p>
+            <p>
+              This app will be integrated to device's text input method software,
+              and provide word alternatives/suggestions on the go, facilitating
+              the creation of more sophisticated sentences (the user must know Japanese,
+              as it only works as an aid, not as a translator).
+              See <a href="https://github.com/ChrisVilches/CAW" target="_blank">readme</a> for details.
+            </p>
+          </div>
 
-        <p>
-          <a href="https://github.com/ChrisVilches/CAW" class="github-icon" target="_blank">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/github.svg"/>
-          </a>
-          <small>By <a href="http://www.chrisvilches.com/" target="_blank">Chris Vilches</a></small>
-        </p>
-      </div>
+          <div class="row mb-4">
+            <div class="col-md-12 mb-2">
+              <form id="input-form">
+                <textarea id="words-textarea" rows="8" placeholder="文章を入れてください"></textarea>
+              </form>
+              <button type="submit" form="input-form" class="btn btn-primary" id="get-btn">検索</button>
+              <button class="btn btn-primary" id="get-btn-loading" disabled style="display: none;">
+                <img src="images/loading.gif" class="loading-gif"/>
+              </button>
+            </div>
+          </div>
 
-      <div id="app-explanation-text">
-        <p>
-          This app is a dummy frontend to test a dictionary API that provides tens of thousands of scraped words from various sites.
-        </p>
-        <p>
-          This app will be integrated to device's text input method software,
-          and provide word alternatives/suggestions on the go, facilitating
-          the creation of more sophisticated sentences (the user must know Japanese,
-          as it only works as an aid, not as a translator).
-          See <a href="https://github.com/ChrisVilches/CAW" target="_blank">readme</a> for details.
-        </p>
-      </div>
-
-      <div class="row mb-4">
-        <div class="col-md-12 mb-2">
-          <form id="input-form">
-            <textarea id="words-textarea" rows="8" placeholder="文章を入れてください"></textarea>
-          </form>
-          <button type="submit" form="input-form" class="btn btn-primary" id="get-btn">検索</button>
-          <button class="btn btn-primary" id="get-btn-loading" disabled style="display: none;">
-            ...
-            <!--<img src="https://loading.io/assets/img/dashinfinity.gif" class="loading-gif"/>-->
-          </button>
+          <div id="result"></div>
         </div>
       </div>
-
-      <div id="result"></div>
-    </div></div>
     </div>
-
 
     <!-- Modal -->
     <div class="modal right fade" id="right-modal" tabindex="-1" role="dialog" aria-labelledby="right-modal">
@@ -87,7 +80,6 @@
 
           <div class="modal-body" id="modal-content">
           </div>
-
         </div><!-- modal-content -->
       </div><!-- modal-dialog -->
     </div><!-- modal -->
@@ -104,9 +96,7 @@
                 <div class="col-md-8">
                   <div class="result-word-section-synonyms">
                   {{#synonyms}}
-                  
                     <a href="javascript:;" onclick="displayModalShowWord('{{.}}')" class="searchable-word">{{.}}</a>
-                  
                   {{/synonyms}}
                 </div></div>
               </div>
@@ -122,7 +112,6 @@
                 </div>
               </div>
             {{/extra.length}}
-
           </div>
         </div> <!-- END row per word -->
       {{/.}}
