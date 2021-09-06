@@ -1,10 +1,16 @@
 * {
   font-family: Verdana;
+  color: #444;
 }
 
 #top-title {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+#app-explanation-text{
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 #top-title span {
@@ -18,8 +24,18 @@
   display: inline-block;
 }
 
+.github-icon:hover, .github-icon:active, .github-icon:focus{
+  text-decoration: none;
+}
+
+.github-icon img{
+  width: 25px;
+}
+
 #words-textarea {
   width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .loading-gif {
@@ -57,4 +73,28 @@
   .btn-primary {
     width: 100%;
   }
+}
+
+.result-word-container {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 40px;
+}
+
+.result-word-title {
+  font-size: 1.5em;
+  margin-bottom: 0;
+}
+
+.result-word-content{
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.result-word-section-title{
+  margin-bottom: 10px;
+}
+
+.result-word-section-synonyms{
+  border-left: 3px solid #eee; /* TODO: This color is a bit random. Is it good enough? */
+  padding-left: 15px;
 }

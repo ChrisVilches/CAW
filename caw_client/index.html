@@ -24,15 +24,36 @@
   <body>
 
     <div class="container">
+      <div class="row"><div class="col-md-12">
 
       <div id="top-title">
         <span>C.A.W.</span><small>Computer assisted writing</small>
+
+        <p>
+          <a href="https://github.com/ChrisVilches/CAW" class="github-icon" target="_blank">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/github.svg"/>
+          </a>
+          <small>By <a href="http://www.chrisvilches.com/" target="_blank">Chris Vilches</a></small>
+        </p>
+      </div>
+
+      <div id="app-explanation-text">
+        <p>
+          This app is a dummy frontend to test a dictionary API that provides tens of thousands of scraped words from various sites.
+        </p>
+        <p>
+          This app will be integrated to device's text input method software,
+          and provide word alternatives/suggestions on the go, facilitating
+          the creation of more sophisticated sentences (the user must know Japanese,
+          as it only works as an aid, not as a translator).
+          See <a href="https://github.com/ChrisVilches/CAW" target="_blank">readme</a> for details.
+        </p>
       </div>
 
       <div class="row mb-4">
-        <div class="col-md-12">
+        <div class="col-md-12 mb-2">
           <form id="input-form">
-            <textarea id="words-textarea" rows="8"></textarea>
+            <textarea id="words-textarea" rows="8" placeholder="文章を入れてください"></textarea>
           </form>
           <button type="submit" form="input-form" class="btn btn-primary" id="get-btn">検索</button>
           <button class="btn btn-primary" id="get-btn-loading" disabled style="display: none;">
@@ -43,6 +64,7 @@
       </div>
 
       <div id="result"></div>
+    </div></div>
     </div>
 
 
@@ -71,36 +93,39 @@
     </div><!-- modal -->
 
     <script id="word-result-template" type="text/template">
-
       {{#.}}
-        <div class="row mb-4"> <!-- Row per word -->
+        <div class="row mb-4 result-word-container"> <!-- Row per word -->
           <div class="col-md-12">
-
-            <h1>{{word}}</h1>
+            <p class="result-word-title">{{word}}</p>
 
             {{#synonyms}}
-              <div class="row padding-vertical">
-                <div class="col-md-3">{{meaning}}</div>
-                <div class="col-md-9">
+              <div class="row padding-vertical result-word-content">
+                <div class="col-md-4 result-word-section-title">{{meaning}}</div>
+                <div class="col-md-8">
+                  <div class="result-word-section-synonyms">
                   {{#synonyms}}
-                  <a href="javascript:;" onclick="displayModalShowWord('{{.}}')" class="searchable-word">{{.}}</a>
+                  
+                    <a href="javascript:;" onclick="displayModalShowWord('{{.}}')" class="searchable-word">{{.}}</a>
+                  
                   {{/synonyms}}
-                </div>
+                </div></div>
               </div>
             {{/synonyms}}
 
-            <div class="row padding-vertical">
-              <div class="col-md-12">
-                {{#extra}}
-                <a href="javascript:;" onclick="displayModalShowWord('{{.}}')" class="searchable-word">{{.}}</a>
-                {{/extra}}
+            {{#extra.length}}
+              <div class="row padding-vertical result-word-content">
+                <div class="col-md-4 result-word-section-title">補足</div>
+                <div class="col-md-12">
+                  {{#extra}}
+                    <a href="javascript:;" onclick="displayModalShowWord('{{.}}')" class="searchable-word">{{.}}</a>
+                  {{/extra}}
+                </div>
               </div>
-            </div>
+            {{/extra.length}}
 
           </div>
         </div> <!-- END row per word -->
       {{/.}}
-
     </script>
     <script src="js/index.js"></script>
   </body>

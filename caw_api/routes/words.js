@@ -4,7 +4,7 @@ const Word = require('../models/word');
 const axios = require('axios');
 const R = require('ramda');
 
-const JAPANESE_TOKENIZER_ENDPOINT = 'http://127.0.0.1:45678/important_words'; // TODO: .env
+const JAPANESE_TOKENIZER_ENDPOINT = process.env.JAPANESE_TOKENIZER_ENDPOINT + '/important_words';
 
 // Limit both full text char count, and individual words to be queried.
 const TEXT_CHAR_LIMIT = 256;

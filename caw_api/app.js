@@ -1,8 +1,13 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+if(process.env.JAPANESE_TOKENIZER_ENDPOINT == null){
+  throw new Error('Env variable JAPANESE_TOKENIZER_ENDPOINT cannot be null. Set the tokenizer endpoint (base URL).');
+}
 
 var indexRouter = require('./routes/index');
 var wordsRouter = require('./routes/words');

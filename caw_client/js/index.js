@@ -12,11 +12,10 @@ $("#input-form").on("submit", function(ev){
 
   localStorage.setItem("previousText", text);
 
-  query = text
-  .split("\n")
-  .map(l => l.trim())
-  .filter(l => l.length > 0)
-  .join(",");
+  query = text.split("\n")
+              .map(l => l.trim())
+              .filter(l => l.length > 0)
+              .join(",");
 
   $.ajax({
     type: 'GET',
@@ -52,6 +51,9 @@ $('#input-form').keydown(function(event) {
 $('#right-modal').modal({ show: false});
 
 function getWords2HTML(wordsArray){
+  // Don't show words that don't have any results.
+  wordsArray = wordsArray.filter(w => w.extra.length > 0 || w.synonyms.length > 0);
+
   var template = $('#word-result-template').html();
   var html = Mustache.to_html(template, wordsArray);
   return html;
@@ -107,8 +109,10 @@ function displayModalShowWord(word){
 
   word = word.trim();
 
-  displayModal(word, function(cb){
+  // Class "show" is only present when modal is visible.
+  var isModalOpen = $('#right-modal').hasClass('show');
 
+  displayModal(word, function(cb){
     $.ajax({
       type: 'GET',
       url: API_URL + '/words?q=' + word,
@@ -118,12 +122,10 @@ function displayModalShowWord(word){
       var html = getWords2HTML(res);
       cb(html);
     })
-    .catch(alert)
-    .done(() => {
-
-    });
-
-  }, true);
+    .catch(alert);
+  },
+  // Only animate if modal was already open.
+  isModalOpen);
 }
 
 function goBack(){
